@@ -4,7 +4,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Double tap left CMD for iTerm2 quake mode (sends ⌥\\, the hotkey in hotkey-window.json)",
+                        "description": "Double tap left CMD for iTerm2 quake mode (sends ⌥\\)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -19,6 +19,12 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [
+                                    {
+                                        "set_variable": {
+                                            "name": "cmd_tapped",
+                                            "value": 0
+                                        }
+                                    },
                                     {
                                         "key_code": "backslash",
                                         "modifiers": ["left_option"]
