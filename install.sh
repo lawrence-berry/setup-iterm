@@ -1,15 +1,15 @@
 #!/bin/sh
-# Sets up iTerm's Quake-style hotkey window, the Karabiner rule that opens it
+# Sets up iTerm's Quake-style window hotkey, the Karabiner rule that opens it
 # (double-tap left ⌘ sends ⌥\), and iTerm shell integration. Safe to re-run.
 set -e
 dir="$(cd "$(dirname "$0")" && pwd)"
 
-# Hotkey window: a Dynamic Profile. iTerm reloads this folder by itself.
-profiles="$HOME/Library/Application Support/iTerm2/DynamicProfiles"
-mkdir -p "$profiles"
-cp "$dir/hotkey-window.json" "$profiles/setup-iterm-hotkey-window.json"
-# The old "show/hide all windows" hotkey also used ⌥\, so turn it off.
-defaults write com.googlecode.iterm2 Hotkey -bool false
+# Quake window: iTerm's "show/hide all windows" hotkey, set to ⌥\ (key code 42).
+# Your Default profile's Style is "Top of Screen", so its window drops down from the top.
+defaults write com.googlecode.iterm2 Hotkey -bool true
+defaults write com.googlecode.iterm2 HotkeyCode -int 42
+defaults write com.googlecode.iterm2 HotkeyChar -int 92
+defaults write com.googlecode.iterm2 HotkeyModifiers -int 524576
 
 # Karabiner is only used for this one rule, so this repo owns the whole file.
 # Copied, not symlinked: Karabiner replaces the file when it saves.
@@ -32,4 +32,4 @@ fi
 [ -n "$(tail -c1 "$rc" 2>/dev/null)" ] && echo >> "$rc"  # add a missing final newline
 printf '%s\n' "[ -f \"$script\" ] && . \"$script\"  # setup-iterm" >> "$rc"
 
-echo "done. Quit and reopen iTerm (⌘Q) so the old ⌥\\ hotkey lets go."
+echo "done. Quit and reopen iTerm (⌘Q) to pick up the hotkey."

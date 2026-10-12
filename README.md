@@ -1,6 +1,6 @@
 # setup-iterm
 
-iTerm's Quake-style hotkey window, the Karabiner shortcut that opens it, and iTerm shell integration.
+iTerm's Quake-style window hotkey, the Karabiner shortcut that triggers it, and iTerm shell integration.
 
 ## Install
 
@@ -10,14 +10,12 @@ iTerm's Quake-style hotkey window, the Karabiner shortcut that opens it, and iTe
 
 Then quit and reopen iTerm (⌘Q). Re-runnable.
 
-- **`hotkey-window.json`**: a [Dynamic Profile](https://iterm2.com/documentation-dynamic-profiles.html) named "Hotkey Window". It drops down from the top of the screen on ⌥\\, floats over other apps and hides when it loses focus. It inherits everything else (font, colours) from your Default profile. `install.sh` copies it into `~/Library/Application Support/iTerm2/DynamicProfiles/`, and turns off iTerm's older "show/hide all windows" hotkey, which also used ⌥\\.
+- **Quake window**: turns on iTerm's "Show/hide all windows with a system-wide hotkey" (Settings → Keys → Hotkey) and sets it to ⌥\\. Your Default profile's window Style is "Top of Screen", so the window you have open drops down from the top. That Style isn't set by this repo: on a new Mac, set it once in Settings → Profiles → Window.
 - **`karabiner.json`**: double-tap left ⌘ sends ⌥\\. Karabiner is only used for this one rule, so `install.sh` copies the whole file over `~/.config/karabiner/karabiner.json` (keeping the old one as `karabiner.json.bak`). Karabiner picks it up straight away.
 - **Shell integration**: downloads iTerm's script if it's missing and adds one `# setup-iterm` line to `~/.zshrc` (or `~/.bashrc`) that sources it.
 
 ## Changing things
 
-**The two halves share one key, ⌥\\.** If you change it, change it in both files: `to` in `karabiner.json` and the `HotKey …` values in `hotkey-window.json`.
-
-Edits made in iTerm's Settings window to a Dynamic Profile aren't saved back to the JSON. Edit `hotkey-window.json` and re-run `install.sh` instead. The setting names come from iTerm's source: `sources/Settings/Profiles/ITAddressBookMgr.h`.
+**The two halves share one key, ⌥\\.** If you change it, change it in both places: `to` in `karabiner.json` and the `Hotkey…` values in `install.sh`.
 
 Karabiner itself is installed by setup-mac's Brewfile.
