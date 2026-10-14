@@ -1,6 +1,6 @@
 #!/bin/sh
 # Sets up iTerm's Quake-style window hotkey, the Karabiner rule that opens it
-# (double-tap left ⌘ sends ⌥\), and iTerm shell integration. Safe to re-run.
+# (double-tap left ⌘ sends ⌥\), iTerm shell integration, and the folder-name badge. Safe to re-run.
 set -e
 dir="$(cd "$(dirname "$0")" && pwd)"
 
@@ -26,10 +26,12 @@ script="$HOME/.iterm2_shell_integration.$sh"
 [ -f "$script" ] || curl -fsSL "https://iterm2.com/shell_integration/$sh" -o "$script"
 # Drop any older integration line (including iTerm's own, unmarked one), then add ours.
 if [ -f "$rc" ]; then
-  grep -v 'iterm2_shell_integration' "$rc" > "$rc.tmp" || true
+  grep -v -e 'iterm2_shell_integration' -e '# setup-iterm-badge' "$rc" > "$rc.tmp" || true
   cat "$rc.tmp" > "$rc" && rm "$rc.tmp"
 fi
 [ -n "$(tail -c1 "$rc" 2>/dev/null)" ] && echo >> "$rc"  # add a missing final newline
 printf '%s\n' "[ -f \"$script\" ] && . \"$script\"  # setup-iterm" >> "$rc"
+# Badge: folder name + emoji, and a Rails app's public/icon.png as the background.
+printf '%s\n' ". \"$dir/badge.sh\"  # setup-iterm-badge" >> "$rc"
 
 echo "done. Quit and reopen iTerm (⌘Q) to pick up the hotkey."
