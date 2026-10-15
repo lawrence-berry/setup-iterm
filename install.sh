@@ -11,6 +11,19 @@ defaults write com.googlecode.iterm2 HotkeyCode -int 42
 defaults write com.googlecode.iterm2 HotkeyChar -int 92
 defaults write com.googlecode.iterm2 HotkeyModifiers -int 524576
 
+# Badge icon: point the Default profile's background image at the `icon` variable that
+# badge.sh sets, aspect-fit and faint. PlistBuddy edits are lost if iTerm is running.
+plist="$HOME/Library/Preferences/com.googlecode.iterm2.plist"
+pb=/usr/libexec/PlistBuddy
+if pgrep -x iTerm2 >/dev/null; then
+  echo "iTerm is running: quit it (⌘Q) and re-run to set the profile's background image."
+else
+  p=":'New Bookmarks':0"
+  $pb -c "Set $p:'Background Image Location' '\\\\(user.icon)'" "$plist" 2>/dev/null || $pb -c "Add $p:'Background Image Location' string '\\\\(user.icon)'" "$plist"
+  $pb -c "Set $p:'Background Image Mode' 3" "$plist" 2>/dev/null || $pb -c "Add $p:'Background Image Mode' integer 3" "$plist"
+  $pb -c "Set $p:Blend 0.15" "$plist" 2>/dev/null || $pb -c "Add $p:Blend real 0.15" "$plist"
+fi
+
 # Karabiner is only used for this one rule, so this repo owns the whole file.
 # Copied, not symlinked: Karabiner replaces the file when it saves.
 k="$HOME/.config/karabiner/karabiner.json"
