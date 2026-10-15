@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>snippets</key>
+	<array>
+		<dict>
+			<key>escaping</key>
+			<integer>2</integer>
+			<key>guid</key>
+			<string>8029F504-DA62-4E02-8138-73A7B91AB4EF</string>
+			<key>tags</key>
+			<array/>
+			<key>title</key>
+			<string>bootstrapit</string>
+			<key>value</key>
+			<string>(curl -fsSL https://lawrence-berry.github.io/setup || wget -qO- https://lawrence-berry.github.io/setup) | sh</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+	</array>
+</dict>
+</plist>
