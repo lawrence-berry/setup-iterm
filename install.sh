@@ -1,6 +1,6 @@
 #!/bin/sh
 # Sets up iTerm's Quake-style window hotkey, the Karabiner rule that opens it
-# (double-tap left ⌘ sends ⌥\), iTerm shell integration, and the folder-name badge. Safe to re-run.
+# (double-tap left ⌘ sends ⌥\), iTerm shell integration, the folder-name badge and the snippets. Safe to re-run.
 set -e
 dir="$(cd "$(dirname "$0")" && pwd)"
 
@@ -31,6 +31,19 @@ if ! cmp -s "$dir/karabiner.json" "$k"; then
   mkdir -p "$(dirname "$k")"
   [ -f "$k" ] && cp "$k" "$k.bak"
   cp "$dir/karabiner.json" "$k"
+fi
+
+# Snippets: this repo owns iTerm's whole snippets.plist (the `bootstrapit` one-liner).
+# iTerm rewrites the file while it runs, so only copy when it's closed.
+sn="$HOME/Library/Application Support/iTerm2/snippets.plist"
+if ! cmp -s "$dir/snippets.plist" "$sn"; then
+  if pgrep -x iTerm2 >/dev/null; then
+    echo "iTerm is running: quit it (⌘Q) and re-run to install the snippets."
+  else
+    mkdir -p "$(dirname "$sn")"
+    [ -f "$sn" ] && cp "$sn" "$sn.bak"
+    cp "$dir/snippets.plist" "$sn"
+  fi
 fi
 
 # Shell integration: fetch iTerm's script if missing, and source it from the rc file.
