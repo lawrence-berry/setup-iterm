@@ -14,10 +14,10 @@ _setup_iterm_badge() {
     dir="${dir%/*}"
   done
   # Emoji picked from the folder name, so each folder keeps the same one.
-  local emojis=(🦊 🐙 🦉 🐢 🦋 🐝 🦄 🐳 🦀 🐧 🦖 🐬) sum
+  local emojis=(🧌 🫦 🪩 🫰 🫶 🤌 👌 🥶 😮‍💨 😎 🫡 😶‍🌫️ 😈 🔥 🖤 🛝 🫗 🫙 🎸 🕴️ 🧜 🕶️ 👁️‍🗨️ 👽 🛸 🌌 🧬 🪽 ⚡ 🐍 🪼) sum
   sum=$(printf %s "$name" | cksum | cut -d' ' -f1)
   local _o=0; [ -n "$ZSH_VERSION" ] && _o=1
-  local e="${emojis[$((sum % 12 + ${_o}))]}"
+  local e="${emojis[$((sum % ${#emojis[@]} + _o))]}"
   [ -n "$icon" ] && e=""
   printf '\e]1337;SetBadgeFormat=%s\a' "$(printf '%s %s' "$e" "$name" | base64 | tr -d '\n')"
   # The Default profile's background image is "\(user.icon)", so this variable drives it.
