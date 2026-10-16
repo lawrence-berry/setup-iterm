@@ -11,12 +11,19 @@ defaults write com.googlecode.iterm2 HotkeyCode -int 42
 defaults write com.googlecode.iterm2 HotkeyChar -int 92
 defaults write com.googlecode.iterm2 HotkeyModifiers -int 524576
 
+# Tab switching: ⌃⌥← previous tab, ⌃⌥→ next tab (arrow key codes 0xf702/0xf703, ⌃⌥ + arrow flag = 0x2c0000).
+# Action 2 = previous tab, 0 = next tab. iTerm's own ⌘⇧[ / ⌘⇧] and ⌃Tab still work.
+for k in "0xf702-0x2c0000-0x0:2" "0xf703-0x2c0000-0x0:0"; do
+  defaults write com.googlecode.iterm2 GlobalKeyMap -dict-add "${k%:*}" \
+    "<dict><key>Action</key><integer>${k#*:}</integer><key>Text</key><string></string></dict>"
+done
+
 # Badge icon: point the Default profile's background image at the `icon` variable that
 # badge.sh sets, aspect-fit and faint. PlistBuddy edits are lost if iTerm is running.
 plist="$HOME/Library/Preferences/com.googlecode.iterm2.plist"
 pb=/usr/libexec/PlistBuddy
 if pgrep -x iTerm2 >/dev/null; then
-  echo "iTerm is running: quit it (⌘Q) and re-run to set the profile's background image."
+  echo "iTerm is running: quit it (⌘Q), re-run from another terminal app to set the profile's background image."
 else
   p=":'New Bookmarks':0"
   $pb -c "Set $p:'Background Image Location' '\\\\(user.icon)'" "$plist" 2>/dev/null || $pb -c "Add $p:'Background Image Location' string '\\\\(user.icon)'" "$plist"
@@ -38,7 +45,7 @@ fi
 sn="$HOME/Library/Application Support/iTerm2/snippets.plist"
 if ! cmp -s "$dir/snippets.plist" "$sn"; then
   if pgrep -x iTerm2 >/dev/null; then
-    echo "iTerm is running: quit it (⌘Q) and re-run to install the snippets."
+    echo "iTerm is running: quit it (⌘Q), re-run from another terminal app to install the snippets."
   else
     mkdir -p "$(dirname "$sn")"
     [ -f "$sn" ] && cp "$sn" "$sn.bak"
@@ -60,4 +67,4 @@ printf '%s\n' "[ -f \"$script\" ] && . \"$script\"  # setup-iterm" >> "$rc"
 # Badge: folder name + emoji, and a Rails app's public/icon.png as the background.
 printf '%s\n' ". \"$dir/badge.sh\"  # setup-iterm-badge" >> "$rc"
 
-echo "done. Quit and reopen iTerm (⌘Q) to pick up the hotkey."
+echo "done. Open iTerm to pick up the changes."
