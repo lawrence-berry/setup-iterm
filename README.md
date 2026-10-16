@@ -1,5 +1,6 @@
 # setup-iterm
 
+<img src="public/icon.png" alt="" width="96">
 iTerm setup: the Quake-style window hotkey and the Karabiner shortcut that triggers it, tab-switching keys, shell integration, a folder-name badge, and a `bootstrapit` snippet.
 
 ## Install

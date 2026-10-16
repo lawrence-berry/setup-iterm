@@ -1,4 +1,4 @@
-# iTerm badge: current folder's name, with an emoji. In a Rails app that has
+# iTerm badge: current folder's name, with an emoji. In a folder (or inside one) that has
 # public/icon.png, that icon is also shown as the session's background image (via the
 # user variable `icon`, which install.sh points the profile's background image at).
 # Sourced from your rc file by install.sh. Needs iTerm's escape codes (a no-op elsewhere).
@@ -10,7 +10,7 @@ _setup_iterm_badge() {
   local name="${PWD##*/}" icon="" dir="$PWD"
   [ -n "$name" ] || name=/
   while [ -n "$dir" ]; do
-    [ -f "$dir/config/application.rb" ] && [ -f "$dir/public/icon.png" ] && { icon="$dir/public/icon.png"; break; }
+    [ -f "$dir/public/icon.png" ] && { icon="$dir/public/icon.png"; break; }
     dir="${dir%/*}"
   done
   # Emoji picked from the folder name, so each folder keeps the same one.
