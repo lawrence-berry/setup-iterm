@@ -1,0 +1,35 @@
+name: macOS
+
+on:
+  pull_request:
+    paths-ignore: [ "**.md" ]
+  push:
+    branches: [main]
+    paths-ignore: [ "**.md" ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  install:
+    name: Install (macos-15)
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run install.sh twice on the throwaway runner
+        run: |
+          export SHELL=/bin/zsh
+          # A fresh runner has no iTerm profile; give install.sh the one it edits.
+          defaults write com.googlecode.iterm2 'New Bookmarks' -array '<dict><key>Name</key><string>Default</string></dict>'
+          ./install.sh
+          ./install.sh
+          defaults read com.googlecode.iterm2 Hotkey | grep -qx 1
+          defaults read com.googlecode.iterm2 GlobalKeyMap | grep -q 0xf702-0x2c0000-0x0
+          cmp karabiner.json ~/.config/karabiner/karabiner.json
+          cmp snippets.plist "$HOME/Library/Application Support/iTerm2/snippets.plist"
+          [ "$(grep -c '# setup-iterm$' ~/.zshrc)" -eq 1 ]
+          [ "$(grep -c '# setup-iterm-badge' ~/.zshrc)" -eq 1 ]
