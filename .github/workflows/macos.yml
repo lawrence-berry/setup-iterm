@@ -1,4 +1,4 @@
-name: CI
+name: macOS
 
 on:
   pull_request:
@@ -8,20 +8,13 @@ on:
     paths-ignore: [ "**.md" ]
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  shellcheck:
-    name: ShellCheck
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v7
-      - run: shellcheck -S warning -e SC2148,SC3043,SC1090 *.sh
-
   install:
     name: Install (macos-15)
     runs-on: macos-15

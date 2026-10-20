@@ -12,19 +12,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/lawrence-berry/setup-iterm/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/lawrence-berry/setup-iterm/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&label=CI" alt="CI status" /></a>
+  <a href="https://github.com/lawrence-berry/setup-iterm/actions/workflows/macos.yml"><img src="https://img.shields.io/github/actions/workflow/status/lawrence-berry/setup-iterm/macos.yml?branch=main&style=for-the-badge&logo=apple&logoColor=white&label=macOS%2015" alt="macOS 15 CI status" /></a>
+  <a href="https://github.com/lawrence-berry/setup-iterm/actions/workflows/linux.yml"><img src="https://img.shields.io/github/actions/workflow/status/lawrence-berry/setup-iterm/linux.yml?branch=main&style=for-the-badge&logo=ubuntu&logoColor=white&label=ShellCheck" alt="ShellCheck CI status" /></a>
 </p>
 
 iTerm setup: the Quake-style window hotkey and the Karabiner shortcut that triggers it, tab-switching keys, shell integration, a folder-name badge, and a `bootstrapit` snippet.
-
-## Supported versions
-
-| Component | Version | Status |
-|---|---|---|
-| macOS | 27 (Apple Silicon) | Used daily |
-| iTerm2 | 3.5+ (Snippets) | Preferences written by CI; behaviour checked by hand |
-| Karabiner-Elements | 16.3 | Installed by setup-mac's Brewfile |
-| Shell | `/bin/sh` (POSIX); `badge.sh` is sourced by bash or zsh | ShellCheck in CI |
 
 ## Install
 
