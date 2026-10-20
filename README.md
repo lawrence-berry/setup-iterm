@@ -22,7 +22,7 @@ iTerm setup: the Quake-style window hotkey and the Karabiner shortcut that trigg
 | Component | Version | Status |
 |---|---|---|
 | macOS | 27 (Apple Silicon) | Used daily |
-| iTerm2 | 3.5+ (Snippets) | By hand |
+| iTerm2 | 3.5+ (Snippets) | Preferences written by CI; behaviour checked by hand |
 | Karabiner-Elements | 16.3 | Installed by setup-mac's Brewfile |
 | Shell | `/bin/sh` (POSIX); `badge.sh` is sourced by bash or zsh | ShellCheck in CI |
 
@@ -49,6 +49,6 @@ Karabiner itself is installed by setup-mac's Brewfile.
 
 ## Tests
 
-CI lints the scripts with ShellCheck. The installer writes iTerm's preferences, which only exist on a Mac with iTerm installed, so it is checked by hand.
+CI lints the scripts with ShellCheck, then runs `install.sh` twice on a throwaway macOS 15 runner (seeded with a minimal iTerm profile) and checks the hotkey, tab keys, `karabiner.json`, snippets and rc lines. The Quake window's behaviour on screen is checked by hand.
 
 Part of the [`setup-*`](https://lawrence-berry.github.io/setup) family; on a blank machine, `curl -fsSL https://lawrence-berry.github.io/setup | sh` installs them all (setup-mac and setup-iterm on macOS only).
