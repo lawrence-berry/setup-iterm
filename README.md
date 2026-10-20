@@ -1,7 +1,30 @@
-# setup-iterm
+<p align="center"><img src="public/icon.png" alt="setup-iterm icon" width="128" height="128"></p>
 
-<p align="center"><img src="public/icon.png" alt="setup-iterm icon" width="96" height="96"></p>
+<h1 align="center">setup-iterm</h1>
+
+<p align="center"><b>iTerm2 and Karabiner setup: a Quake-style hotkey window, tab keys, shell integration, a folder badge and a bootstrap snippet.</b></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-27-000000?style=for-the-badge&logo=apple&logoColor=white" alt="macOS 27" />
+  <img src="https://img.shields.io/badge/iTerm2-3.5%2B-000000?style=for-the-badge&logo=iterm2&logoColor=white" alt="iTerm2 3.5+" />
+  <img src="https://img.shields.io/badge/Karabiner-Elements%2016-7B1FA2?style=for-the-badge&logo=keyboard&logoColor=white" alt="Karabiner Elements 16" />
+  <img src="https://img.shields.io/badge/Shell-POSIX%20sh-4EAA25?style=for-the-badge&logo=gnubash&logoColor=white" alt="Shell POSIX sh" />
+</p>
+
+<p align="center">
+  <a href="https://github.com/lawrence-berry/setup-iterm/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/lawrence-berry/setup-iterm/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&label=CI" alt="CI status" /></a>
+</p>
+
 iTerm setup: the Quake-style window hotkey and the Karabiner shortcut that triggers it, tab-switching keys, shell integration, a folder-name badge, and a `bootstrapit` snippet.
+
+## Supported versions
+
+| Component | Version | Status |
+|---|---|---|
+| macOS | 27 (Apple Silicon) | Used daily |
+| iTerm2 | 3.5+ (Snippets) | By hand |
+| Karabiner-Elements | 16.3 | Installed by setup-mac's Brewfile |
+| Shell | `/bin/sh` (POSIX); `badge.sh` is sourced by bash or zsh | ShellCheck in CI |
 
 ## Install
 
@@ -23,3 +46,9 @@ Run it from a shell outside iTerm (Terminal.app, say) with iTerm quit (⌘Q). iT
 **The two halves share one key, ⌥\\.** If you change it, change it in both places: `to` in `karabiner.json` and the `Hotkey…` values in `install.sh`.
 
 Karabiner itself is installed by setup-mac's Brewfile.
+
+## Tests
+
+CI lints the scripts with ShellCheck. The installer writes iTerm's preferences, which only exist on a Mac with iTerm installed, so it is checked by hand.
+
+Part of the [`setup-*`](https://lawrence-berry.github.io/setup) family; on a blank machine, `curl -fsSL https://lawrence-berry.github.io/setup | sh` installs them all (setup-mac and setup-iterm on macOS only).
